@@ -13,7 +13,7 @@ The source language data for this project from was obtained under a CC-BY-NC 4.0
 
 I wish to thank Nick Thieberger for making the information available in a convenient online form.  
 
-The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv) to be used in an offline command line tool.  This search tool is the result of some specific queries I wished to perform for a digital humanities project, and I thought it might be useful to share.  If there is interest, and Nick is supportive, it should be easy to adapt this to a web-based search tool.
+I am not associated with the Digital Bates project.  This tool has been created by me for a personal project that uses the data, and to enable it to be easier to query the data, and to produce results in one or more formats that might be useful for referencing purposes.  The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv) to be used with this offline command line tool.  
 
 The Digital Bates source data was published on condition the moral rights of the speakers/authors of language were preserved.  I respect that request. I have extracted the informant names that appear in the introductory parts of the source manuscripts so that they appear in each entry and can be recognised and queried as required.  
 
