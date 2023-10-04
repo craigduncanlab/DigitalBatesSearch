@@ -670,26 +670,33 @@ global introtext
 introtext="""
 Digital Bates Search tool
 ---------------------------
-By Craig Duncan October 2023 (craig[@]digihum.au). 
+By Craig Duncan October 2023 (Queries: craig[@]digihum.au). 
 
-Licence:
-Source information: 
+Source information and licence: 
 Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
 https://creativecommons.org/licenses/by-nc/4.0/ 
 
-Allbates.csv is made available under the same licence (CC-NC 4.0).  
-https://creativecommons.org/licenses/by-nc/4.0/ 
+Disclaimer and adaption:
+------------------------
+The source data for this tool, allbates.csv is an adapted form 
+of the HTML data at the origin site as at July 2023. It 
+incorporates original terms, glossary, author, docid, page ID.
+
+The dialect region (second field i.e. NA, noongar,yingarda etc) is 
+approximate only, based on manuscript descriptions and original 
+Bates document map information (index.json). Please make sure you
+check dialects yourself if you wish to rely on it.
+
+Licence for this work:
+-----------------------
+The python code for search.py and the allbates.csv file is made 
+available under a CC-BY-NC-SA 4.0 licence. 
+(https://creativecommons.org/licenses/by-nc-sa/4.0/).
 Please include this notice if you adapt or modify.
 
-Disclaimer and adaption:
-Allbates.csv is an adapted form of the HTML data at the origin site as at July 2023.
-It incorporates original terms, glossary, dialect region, author, docid, page ID as text.
-The dialect region (second field: NA, noongar,yingarda etc) is 
-approximate only, based on manuscript descriptions and original Bates document map information (index.json)
-Please make sure you check dialects yourself if you wish to rely on it, or 
-discuss with me.
+Enter help at command line for further command line information.
 
-Enter help at command line for use information.
+Last updated: 4 October 2023.
 
 """
 
@@ -697,7 +704,7 @@ helptext="""
 
 Digital Bates Search tool HELP
 -------------------------------
-General queries can be directed to Craig Duncan 2023 (craig[@]digihum.au).
+General queries can be directed to craig[@]digihum.au
 
 General Search Commands
 ------------------------
@@ -735,6 +742,8 @@ Mode and Dialect options
  -------------------------
 Enter help or licence on the command line to reproduce the information.
 Enter exit to leave the program.
+
+Last updated: 4 October 2023.
 
 """
 currentmode="NA"

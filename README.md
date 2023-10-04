@@ -1,8 +1,29 @@
 # Search program for Bates database file 'allbates.csv'
 
+By Craig Duncan 2023 (Creative Commons data: see below)
+
 Created 7 September 2023; last updated 3 October 2023.
 
-# Running program
+# Introduction and source data
+
+The source language data for this project from was obtained under a CC-BY-NC 4.0 Creative Commons Licence:
+
+    Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
+    https://creativecommons.org/licenses/by-nc/4.0/ 
+
+The Digital Bates source data was published on condition the moral rights of the speakers/authors of language were preserved.  I respect that request. I have extracted the informant names that appear in the introductory parts of the source manuscripts so that they appear in each entry and can be recognised and queried as required.
+
+The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv).  Please note that the information includes a new field for 'region/dialect' that is my own opinion for my own personal research, based on the locations given in the index.json file at the bates.org website, and information within the header section of the questionnaires.  Please do not rely on that information without checking its accuracy yourself.  
+
+The above attributions and explanation are provided to confirm to the original CC-BY-NC 4.0 licence terms. 
+
+# Licence for this project 
+
+The python code for search.py and the adapted data used for the program (in the allbates.csv file) is made available, under a CC-BY-NC-SA licence (https://creativecommons.org/licenses/by-nc-sa/4.0/). This is the mostly the same as the original data except I have added a 'Share Alike" condition, which means you must include the same licence terms in any modified version of the code or data.  As a courtesy, please let me know when you are using or modifying this material. 
+
+All queries regarding this program and the data can be emailed to: craig[@]digihum.au).
+
+# Instructions for running program
 
 Run program with python3 search.py in the same directory as allbates.csv
 
@@ -11,16 +32,6 @@ Program will present an interactive input screen.
 Enter the word 'exit' to exit program.
 
 # Search command-line options (all require at least a colon suffix)
-
-Digital Bates Search tool
----------------------------
-By Craig Duncan 2023 (craig[@]digihum.au).
-
-Source information credits:
-Data in separate 'allbates.csv' file, a modified form of the original data (and available under licence as CC-NA-NC 4.0) was obtained from : 
-Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
-https://creativecommons.org/licenses/by-nc/4.0/ 
-
 
 General Search Commands
 ------------------------
