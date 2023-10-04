@@ -1,8 +1,8 @@
 # Search program for Bates database file 'allbates.csv'
 
-By Craig Duncan 2023 (Creative Commons data: see below)
+By Craig Duncan 2023
 
-Created 7 September 2023; last updated 3 October 2023.
+Created 7 September 2023; last updated 4 October 2023.
 
 # Introduction and source data
 
@@ -11,27 +11,35 @@ The source language data for this project from was obtained under a CC-BY-NC 4.0
     Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
     https://creativecommons.org/licenses/by-nc/4.0/ 
 
-The Digital Bates source data was published on condition the moral rights of the speakers/authors of language were preserved.  I respect that request. I have extracted the informant names that appear in the introductory parts of the source manuscripts so that they appear in each entry and can be recognised and queried as required.
+I wish to thank Nick Thieberger for making the information available in a convenient online form.  
 
-The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv).  Please note that the information includes a new field for 'region/dialect' that is my own opinion for my own personal research, based on the locations given in the index.json file at the bates.org website, and information within the header section of the questionnaires.  Please do not rely on that information without checking its accuracy yourself.  
+The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv) to be used in an offline command line tool.  This search tool is the result of some specific queries I wished to perform for a digital humanities project, and I thought it might be useful to share.  If there is interest, and Nick is supportive, it should be easy to adapt this to a web-based search tool.
 
-The above attributions and explanation are provided to confirm to the original CC-BY-NC 4.0 licence terms. 
+The Digital Bates source data was published on condition the moral rights of the speakers/authors of language were preserved.  I respect that request. I have extracted the informant names that appear in the introductory parts of the source manuscripts so that they appear in each entry and can be recognised and queried as required.  
+
+Please note that the information includes specific author information, and a new field for 'region/dialect' that is my own opinion, for my own personal research.  The dialect is based on the locations given in the index.json file at the bates.org website.  In some cases, it has been supported with information within the header section of the questionnaires.  Please do not rely on the accuracy of this author and dialect information without checking it yourself.  
+
+The above attributions and explanation are provided to conform to the original CC-BY-NC 4.0 licence terms. 
 
 # Licence for this project 
 
-The python code for search.py and the adapted data used for the program (in the allbates.csv file) is made available, under a CC-BY-NC-SA licence (https://creativecommons.org/licenses/by-nc-sa/4.0/). This is the mostly the same as the original data except I have added a 'Share Alike" condition, which means you must include the same licence terms in any modified version of the code or data.  As a courtesy, please let me know when you are using or modifying this material. 
+The python code for search.py and the adapted data used for the program (in the allbates.csv file) is made available, under a CC-BY-NC-SA licence (https://creativecommons.org/licenses/by-nc-sa/4.0/). This is mostly the same as the original data, with an additional 'Share Alike" condition. This means you must include these same licence terms in any modified version of the code or data.  
 
 All queries regarding this program and the data can be emailed to: craig[@]digihum.au).
 
 # Instructions for running program
 
-Run program with python3 search.py in the same directory as allbates.csv
+Run the program by typing the following instruction on the command line:
+```
+python3 search.py
+```
+You should run the code with all files in the same directory.
 
-Program will present an interactive input screen.
+The program will present an interactive input screen where you can type search commands (see below, or type 'help' in the program).
 
 Enter the word 'exit' to exit program.
 
-# Search command-line options (all require at least a colon suffix)
+# Search command-line options 
 
 General Search Commands
 ------------------------
@@ -47,7 +55,7 @@ General Search Commands
 
 If no other terms are used for the p and f options, the search will return all entries for page or folder/file as specified.
 
-All spaces between words after search commands will be treated as part of the search term (up to next search term entered)
+Please include a colon after each search term. All spaces between words after search commands will be treated as part of the search term (up to next search term entered)
 
 You can combine g and t,ts or te queries on the same line.  
 
