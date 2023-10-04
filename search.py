@@ -683,9 +683,9 @@ Please include this notice if you adapt or modify.
 
 Disclaimer and adaption:
 Allbates.csv is an adapted form of the HTML data at the origin site as at July 2023.
-It incorporates original terms, glossary, lat/long, author, docid, page ID as text.
-The second language field category (NA, noongar,yingarda etc) is 
-approximate only, based on manuscript descriptions and original Bates document map information
+It incorporates original terms, glossary, dialect region, author, docid, page ID as text.
+The dialect region (second field: NA, noongar,yingarda etc) is 
+approximate only, based on manuscript descriptions and original Bates document map information (index.json)
 Please make sure you check dialects yourself if you wish to rely on it, or 
 discuss with me.
 
