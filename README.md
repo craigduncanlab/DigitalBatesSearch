@@ -1,4 +1,4 @@
-# Search program for Bates database file 'allbates.csv'
+# Offline Digital Bates database search tool
 
 By Craig Duncan 2023
 
@@ -59,10 +59,11 @@ Please include a colon after each search term. All spaces between words after se
 
 You can combine g and t,ts or te queries on the same line.  
 
-Persistent mode options (do not need to be re-entered until you want to change)
-
 Mode and Dialect options
 ------------------------
+
+Persistent mode options (do not need to be re-entered until you want to change)
+
 - m: set to NA (default), url or fn.  
 	Default mode is full results, but with page numbers not URLs
 	If url is on, all the Bates page numbers return as URL suitable for browser.  
@@ -70,11 +71,11 @@ Mode and Dialect options
 
 - d: dialect (use this to filter results)
  
- dialect options: noongar,yamaji,yingarda,ngarluma,jukan,eucla
- (anything else will restore to NA i.e. all regions)
+    options: noongar,yamaji,yingarda,ngarluma,jukan,eucla
+    (NA or anything else will defaul to all regions)
 
- Exit and help 
- -------------------------
+Exit and help 
+-------------------------
 
 Enter exit or help on the command line.
 
