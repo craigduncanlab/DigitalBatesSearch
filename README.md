@@ -55,19 +55,47 @@ General Search Commands
 
 If no other terms are used for the p and f options, the search will return all entries for page or folder/file as specified.
 
-Please include a colon after each search term. All spaces between words after search commands will be treated as part of the search term (up to next search term entered)
+Please include a colon after each search command -
 
-You can combine g and t,ts or te queries on the same line.  
+e.g. 
+
+```
+t:querythis
+```
+
+All spaces between words after search commands will be treated as part of the search term (up to next search term entered)
+
+You can combine g and t,ts or te queries on the same line. e.g.
+
+```
+t:querythis g:findthistoo
+```
 
 Mode and Dialect options
 ------------------------
 
 Persistent mode options (do not need to be re-entered until you want to change)
 
-- m: set to NA (default), url or fn.  
-	Default mode is full results, but with page numbers not URLs
-	If url is on, all the Bates page numbers return as URL suitable for browser.  
-	If fn (footnote) mode is on, returns abridged result (term, gloss and docid/pageid) is returned.
+- m: set to def (default), url or fn.  
+
+Default mode is full results, e.g.
+```
+GT NA Noongar 45-067T Swan:gooljak>kooleeja>maalee pb-45-075T
+```
+
+
+If url is on, all the Bates page numbers return as URL suitable for browser.e.g.
+
+```
+G NA Noongar 45-067T Swan:gooljak>kooleeja>maalee pb-45-075T http://www.bates.org.au/images/45/45-075T.jpg
+```
+	
+If fn (footnote) mode is on, program returns an abridged result 
+e.g.
+
+```
+Gwert:To throw (41-027T,pb-41-033T)
+```
 
 - d: dialect (use this to filter results)
  

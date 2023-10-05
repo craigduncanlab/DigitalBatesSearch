@@ -194,19 +194,18 @@ def getTokenArgument(input,delim):
 		start=input.find(delim)
 		if (start!=-1):
 			rightsplit=input[start+len(delim):]
-			rhstext=rightsplit.split(":")
-			searchtext=rhstext[0] # second entry
-			#print("text arg:"+searchtext)
+			#rhstext=rightsplit.split(":")
+			#searchtext=rhstext[0] # second entry
+			searchtext=rightsplit
 			cmdlist=["g","d","t","a","m","ts","te","p","f"]
 			lt=len(searchtext)
+			# capture up to next
 			for x in cmdlist:
-				captured=searchtext[lt-(len(x)+1):lt]
-				captured=captured.strip()
-				#print("captured pre test:"+captured)
-				if (captured in cmdlist):
-					searchtext=searchtext[:lt-len(captured)].strip()
-					#print("delim:"+delim)
-					#print("new text arg:"+searchtext)
+				a=x+":"
+				place=searchtext.find(a)
+				if (place>3):
+					searchtext=searchtext[:place].strip()
+					return searchtext
 			return searchtext
 	else:
 		return searchtext
@@ -306,6 +305,8 @@ def updateMode(um):
 		return "url"
 	elif (um.lower()=="fn"):
 		return "fn"
+	elif (um.lower()=="def"):
+		return "def"
 	else:
 		return "NA"
 
@@ -366,18 +367,26 @@ def logTokens(glosstoken,termtoken,gloss,term,gm,m):
 
 def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,glosstoken,modetoken,pagetoken,filetoken):
 	global currentregion,currentmode
+	termstarttoken=""
+	termendtoken=""
 	filter1=filterByRegion(regiontoken,data)
 	filter2=filterByAuthor(authortoken,filter1)
 	if (pagetoken!="NA"):
 		filter2=filterByPage(pagetoken,filter2)
 	if (filetoken!="NA"):
 		filter2=filterByFile(filetoken,filter2)
+
+	if termtype=="bookend":
+		terms=termtoken.split("|")
+		termstarttoken=terms[0]
+		termendtoken=terms[1]
 	# to do: filter by document reference
 
 	if (modetoken!="NA"):
-		currentmode=updateMode(modetoken)
-	else:
-		currentmode="NA"
+		if (modetoken=="NIL"):
+			currentmode=="NA"
+		else:
+			currentmode=updateMode(modetoken)
 	tagline="Current dialect:"+currentregion+", input dialect:"+regiontoken+", currentmode:"+currentmode
 	logoutput(tagline)
 	resultcount=0
@@ -436,6 +445,10 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 							searchcode=7
 							searchterm=termtoken
 
+					if termtype=="bookend":
+							searchcode=8
+
+
 				if glosscmd!="NA":
 		
 					if gtype!="=":
@@ -482,6 +495,19 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 						result=fnresult
 					else:
 						result=getCustomResult("GT",glossresult)
+					resultcount=resultcount+1
+					searchterm=glosstoken+"|"+termtoken
+
+			if multi==True and searchcode==1 and termtype=="bookend":
+				gmatch=matchAnywhere(glosscmd,gloss)
+				match=matchStart(termstarttoken,term)
+				match2=matchEnd(termendtoken,term)
+				if match==True and match2 ==True and gmatch==True:
+					if (currentmode=="fn"):
+						result=fnresult
+					else:
+						result=getCustomResult("GTT",glossresult)
+					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
 					resultcount=resultcount+1
 					searchterm=glosstoken+"|"+termtoken
 
@@ -545,6 +571,19 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 					#result="T "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
 					resultcount=resultcount+1	
 
+			if searchcode==8:
+				match=matchStart(termstarttoken,term)
+				match2=matchEnd(termendtoken,term)
+				if match==True and match2 ==True:
+					if (currentmode=="fn"):
+						result=fnresult
+					else:
+						result=getCustomResult("TT",glossresult)
+					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					resultcount=resultcount+1
+					searchterm=termstarttoken+"|"+termendtoken
+
+
 			if searchcode==0:
 				if pagetoken!="NA":
 					if (currentmode=="fn"):
@@ -602,6 +641,9 @@ def processinput(userinput,data):
 	if (termtoken=="NA" and termstarttoken!="NA"):
 		termtoken=termstarttoken
 		termtype="start"
+	if (termtoken!="NA" and termstarttoken!="NA"):
+		termtoken=termstarttoken+"|"+termendtoken
+		termtype="bookend"
 	glosstoken=getTokenArgument(userinput,"g:")
 	authortoken=getTokenArgument(userinput,"a:")
 	modetoken=getTokenArgument(userinput,"m:")
