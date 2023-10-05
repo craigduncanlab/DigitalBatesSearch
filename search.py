@@ -376,6 +376,8 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 
 	if (modetoken!="NA"):
 		currentmode=updateMode(modetoken)
+	else:
+		currentmode="NA"
 	tagline="Current dialect:"+currentregion+", input dialect:"+regiontoken+", currentmode:"+currentmode
 	logoutput(tagline)
 	resultcount=0
