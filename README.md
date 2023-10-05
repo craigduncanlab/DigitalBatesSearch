@@ -100,7 +100,8 @@ Gwert:To throw (41-027T,pb-41-033T)
 - d: dialect (use this to filter results)
  
     options: noongar,yamaji,yingarda,ngarluma,jukan,eucla
-    (NA or anything else will defaul to all regions)
+    Currently only permits one region to be set at a time.
+    Invalid entries will default to all regions.
 
 Exit and help 
 -------------------------
