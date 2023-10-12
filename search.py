@@ -194,19 +194,21 @@ def getTokenArgument(input,delim):
 		start=input.find(delim)
 		if (start!=-1):
 			rightsplit=input[start+len(delim):]
-			#rhstext=rightsplit.split(":")
-			#searchtext=rhstext[0] # second entry
-			searchtext=rightsplit
-			cmdlist=["g","d","t","a","m","ts","te","p","f"]
-			lt=len(searchtext)
-			# capture up to next
-			for x in cmdlist:
-				a=x+":"
-				place=searchtext.find(a)
-				if (place>3):
-					searchtext=searchtext[:place].strip()
-					return searchtext
-			return searchtext
+			if (":" in rightsplit):
+				rhstext=rightsplit.split(":")
+				searchtext=rhstext[0]+":" # second entry
+				cmdlist=["g","d","t","a","m","ts","te","p","f"]
+				lt=len(searchtext)
+				# capture up to next
+				for x in cmdlist:
+					a=x+":"
+					place=searchtext.find(a)
+					if (place>2):
+						searchtext=searchtext[:place].strip()
+						return searchtext
+			else:
+				searchtext=rightsplit
+				return searchtext
 	else:
 		return searchtext
 
@@ -701,7 +703,7 @@ def runtests():
 	#testpage()
 	#testinput4()
 	#testmatching()
-	#testinput2()
+	testinput2()
 	#testinput5()
 	#testtoken()
 
