@@ -2,7 +2,7 @@
 
 By Craig Duncan 2023
 
-Created 7 September 2023; last updated 4 October 2023.
+Created 7 September 2023; last updated 13 October 2023.
 
 # Introduction and source data
 
@@ -25,7 +25,7 @@ The above attributions and explanation are provided to conform to the original C
 
 The python code for search.py and the adapted data used for the program (in the allbates.csv file) is made available, under a CC-BY-NC-SA licence (https://creativecommons.org/licenses/by-nc-sa/4.0/). This is mostly the same as the original data, with an additional 'Share Alike" condition. This means you must include these same licence terms in any modified version of the code or data.  
 
-All queries regarding this program and the data can be emailed to: craig[@]digihum.au).
+All queries regarding this program and the data can be emailed to: craig[@]digihum.au
 
 # Instructions for running program
 
