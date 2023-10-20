@@ -307,6 +307,8 @@ def updateMode(um):
 		return "url"
 	elif (um.lower()=="fn"):
 		return "fn"
+	elif (um.lower()=="net"):
+		return "net"
 	elif (um.lower()=="def"):
 		return "def"
 	else:
@@ -417,10 +419,35 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 			if (len(spare)>4 and currentmode=="url"):
 				spare2=getURLfromPage(spare)
 				spare=spare+" "+spare2
+			if (len(spare)>4 and currentmode=="net"):
+				linky=getURLfromPage(spare)
+				spare2='<a href="'+linky+'">'+spare+'</a>'
+				spare=spare2
 			# prepare strings
 			glossresult=author+" "+region+" "+docid+" "+gloss+":"+term+" "+spare
 			termresult=author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
 			fnresult=term+":"+gloss+" ("+docid+","+spare+")"
+			cleanterm=term.replace(",","/")
+			cleangloss=gloss.replace(",","/")
+			#netresult1='"TM","'+termtoken+'","'+cleanterm+'"'
+			netresult1='"WO","'+cleanterm+'","x"'
+			netresult2='"G","'+cleanterm+'","'+cleangloss+'","'+spare+'"'
+			netresult=netresult1+"\n"+netresult2
+			termresult=getCustomResult(termresult,currentmode,fnresult,netresult)
+			glossresult=getCustomResult(glossresult,currentmode,fnresult,netresult)
+			result1=termresult
+			result5=termresult
+			result6=termresult
+			result2=glossresult
+			result3=glossresult
+			result4=glossresult
+			if (currentmode!="net"):
+				result1=getResultForm("T",termresult)
+				result5=getResultForm("P",termresult)
+				result6=getResultForm("F",termresult)
+				result2=getResultForm("GT",glossresult)
+				result3=getResultForm("GTT",glossresult)
+				result4=getResultForm("TT",glossresult)
 
 			if glosscmd!="NA" and termtoken!="NA":
 				multi=True # "x AND y"
@@ -467,36 +494,24 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 				match=matchAnywhere(termtoken,term)
 				#logTokens(glosstoken,termtoken,gloss,term)
 				if match==True and gmatch==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("GT",glossresult)
-					#result="GT "+author+" "+region+" "+docid+" "+gloss+":"+term+" "+spare
+					result=result2
 					resultcount=resultcount+1
 			
 			if multi==True and searchcode==1 and termtype=="start":
 				gmatch=matchAnywhere(glosscmd,gloss)
 				match=matchStart(termtoken,term)
 				if match==True and gmatch==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("GT",glossresult)
-					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result2
 					resultcount=resultcount+1
 					searchterm=glosstoken+"|"+termtoken
 
 			if multi==True and searchcode==1 and termtype=="end":
-				#print("ok, entering g and te search...")
+				
 				gmatch=matchAnywhere(glosscmd,gloss)
 				match=matchEnd(termtoken,term)
 				#logTokens(glosstoken,termtoken,gloss,term,gmatch,match)
 				if match==True and gmatch==True:
-					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("GT",glossresult)
+					result=result2
 					resultcount=resultcount+1
 					searchterm=glosstoken+"|"+termtoken
 
@@ -505,107 +520,66 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 				match=matchStart(termstarttoken,term)
 				match2=matchEnd(termendtoken,term)
 				if match==True and match2 ==True and gmatch==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("GTT",glossresult)
-					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result3
 					resultcount=resultcount+1
 					searchterm=glosstoken+"|"+termtoken
 
 			if searchcode==2:
 				match=matchAnywhere(termtoken,term)
 				if match==True:
-					#result="T "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("T",termresult)
+					result=result1
 					resultcount=resultcount+1
 					
 			if searchcode==3:
 				match=matchExactly(termtoken,term)
 				if match==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("T",termresult)
+					result=result1
 					resultcount=resultcount+1
 					
 
 			if searchcode==4:	
 				match=matchAnywhere(glosstoken,gloss)
 				if match==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("G",glossresult)
-					#result="G "+author+" "+region+" "+docid+" "+gloss+":"+term+" "+spare
+					result=result2
 					resultcount=resultcount+1
 					
 			if searchcode==5:
 				match=matchExactly(glosstoken,gloss)
 				if match==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("G",glossresult)
-					#result="G "+author+" "+region+" "+docid+" "+gloss+":"+term+" "+spare
+					result=result2
 					resultcount=resultcount+1
 
 			if searchcode==6:
 				match=matchStart(termtoken,term)
 				if match==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("T",termresult)
-					#result="T "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result1
 					resultcount=resultcount+1	
 
 			if searchcode==7:
 				match=matchEnd(termtoken,term)
 				if match==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("T",termresult)
-					#result="T "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result1
 					resultcount=resultcount+1	
 
 			if searchcode==8:
 				match=matchStart(termstarttoken,term)
 				match2=matchEnd(termendtoken,term)
 				if match==True and match2 ==True:
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("TT",glossresult)
-					#result="GT "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result4
 					resultcount=resultcount+1
 					searchterm=termstarttoken+"|"+termendtoken
 
 
 			if searchcode==0:
 				if pagetoken!="NA":
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("P",termresult)
-					#result="P "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result5
 					resultcount=resultcount+1	
 				elif (pagetoken=="NA" and filetoken!="NA"):
-					if (currentmode=="fn"):
-						result=fnresult
-					else:
-						result=getCustomResult("F",termresult)
-					#result="F "+author+" "+region+" "+docid+" "+term+":"+gloss+" "+spare
+					result=result6
 					resultcount=resultcount+1	
 				else:
 					result="NIL" # do nothing
-				#if (termtoken=="NA" and glosstoken=="NA"):
-				#	result="A "+author+" "+region+" "+docid+" "+gloss+":"+term+" "+spare+" "+spare
-				#	resultcount=resultcount+1
+
 			#print(termtoken)
 			if (len(result)>0 and result!="NIL"):
 				print(result)
@@ -615,10 +589,19 @@ def doJoinSearch(userinput,data,authortoken,regiontoken,termtoken,termtype,gloss
 	pair=[searchterm,resultcount,justterms]
 	return pair
 
-def getCustomResult(prefix,fstring):
-	result=prefix+" "+fstring
+def getResultForm(prefix,value):
+	result=prefix+" "+value
 	return result
-					
+
+def getCustomResult(fstring,currentmode,fnresult,netresult):
+	result=""
+	if (currentmode=="fn"):
+		result=fnresult
+	elif(currentmode=="net"):
+		result=netresult
+	else:
+		result=fstring
+	return result			
 
 def logoutput(input):
 	mode=True
