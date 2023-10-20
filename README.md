@@ -76,25 +76,32 @@ Mode and Dialect options
 
 Persistent mode options (do not need to be re-entered until you want to change)
 
-- m: set to def (default), url or fn.  
+- m: set to def (default), url, fn or net.  
 
 Default mode is full results, e.g.
 ```
 GT NA Noongar 45-067T Swan:gooljak>kooleeja>maalee pb-45-075T
 ```
 
-
 If url is on, all the Bates page numbers return as URL suitable for browser.e.g.
 
 ```
 G NA Noongar 45-067T Swan:gooljak>kooleeja>maalee pb-45-075T http://www.bates.org.au/images/45/45-075T.jpg
 ```
-	
+
 If fn (footnote) mode is on, program returns an abridged result 
 e.g.
 
 ```
-Gwert:To throw (41-027T,pb-41-033T)
+Gwer
+```
+
+If net (semantic network) mode is on, program returns an abridged result suitable for data to use with pyvis utility. 
+e.g.
+
+```
+"WO","Kala boorn>woojup burrar","x"
+"G","Kala boorn>woojup burrar","Fire-stick","<a href="http://www.bates.org.au/images/40/40-062T.jpg">pb-40-062T</a>"
 ```
 
 - d: dialect (use this to filter results)

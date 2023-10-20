@@ -701,12 +701,14 @@ Digital Bates Search tool
 ---------------------------
 By Craig Duncan October 2023 (Queries: craig[@]digihum.au). 
 
+Source Data
+------------
 Source information and licence: 
 Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
 https://creativecommons.org/licenses/by-nc/4.0/ 
 
-Disclaimer and adaption:
-------------------------
+Source Data Disclaimer and adaption:
+------------------------------------
 The source data for this tool, allbates.csv is an adapted form 
 of the HTML data at the origin site as at July 2023. It 
 incorporates original terms, glossary, author, docid, page ID.
@@ -716,8 +718,8 @@ approximate only, based on manuscript descriptions and original
 Bates document map information (index.json). Please make sure you
 check dialects yourself if you wish to rely on it.
 
-Licence for this work:
------------------------
+Licence for this work (script and adaptation):
+----------------------------------------------
 The python code for search.py and the allbates.csv file is made 
 available under a CC-BY-NC-SA 4.0 licence. 
 (https://creativecommons.org/licenses/by-nc-sa/4.0/).
@@ -725,7 +727,7 @@ Please include this notice if you adapt or modify.
 
 Enter help at command line for further command line information.
 
-Last updated: 4 October 2023.
+Last updated: 20 October 2023.
 
 """
 
@@ -761,6 +763,7 @@ Mode and Dialect options
 	Default mode is full results, but with page numbers not URLs
 	If url is on, all the Bates page numbers return as URL suitable for browser.  
 	If fn (footnote) mode is on, returns abridged result (term, gloss and docid/pageid) is returned.
+	If net (semantic net) mode is on, returns result in a data format to use with my pyvis utility.
 
 - d: dialect (use this to filter results)
  
@@ -772,7 +775,7 @@ Mode and Dialect options
 Enter help or licence on the command line to reproduce the information.
 Enter exit to leave the program.
 
-Last updated: 4 October 2023.
+Last updated: 20 October 2023.
 
 """
 currentmode="NA"
