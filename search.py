@@ -251,6 +251,11 @@ class searchinput:
 		self.pagetoken=""
 		self.filetoken=""
 		self.ztoken=""
+		self.glosslogic=""
+		self.termlogic=""
+
+		self.termstarttoken=""
+		self.termendtoken=""
 
 	def logState(self):
 		print("Term Token")
@@ -292,15 +297,6 @@ class searchinput:
 		termstarttoken=self.getTokenArgument(userinput,"ts:")
 		termendtoken=self.getTokenArgument(userinput,"te:")
 		termtoken=self.getTokenArgument(userinput,"t:")
-		if (termtoken=="NA" and termendtoken!="NA"):
-			termtoken=termendtoken
-			termtype="end"
-		if (termtoken=="NA" and termstarttoken!="NA"):
-			termtoken=termstarttoken
-			termtype="start"
-		if (termtoken!="NA" and termstarttoken!="NA"):
-			termtoken=termstarttoken+"|"+termendtoken
-			termtype="bookend"
 		glosstoken=self.getTokenArgument(userinput,"g:")
 		authortoken=self.getTokenArgument(userinput,"a:")
 		modetoken=self.getTokenArgument(userinput,"m:")
@@ -316,6 +312,8 @@ class searchinput:
 		self.setGlossToken(glosstoken)
 		self.setTermToken(termtoken)
 		self.setTermType(termtype)
+		self.setTermStart(termstarttoken)
+		self.setTermEnd(termendtoken)
 		self.setAuthorToken(authortoken)
 		self.setRegionToken(regiontoken)
 		self.setModeToken(modetoken)
@@ -325,6 +323,24 @@ class searchinput:
 		self.setUserInput(userinput)
 		
 		# userinput,data,authortoken,regiontoken,termtoken,termtype,glosstoken,modetoken,pagetoken,filetoken,ztoken
+
+		# for single term processing in search
+		if (termtoken=="NA" and termendtoken!="NA"):
+			self.setTermToken(termendtoken)
+			self.setTermType("end")
+		if (termtoken=="NA" and termstarttoken!="NA"):
+			self.setTermToken(termstarttoken)
+			self.setTermType("start")
+		if (termtoken!="NA" and termstarttoken!="NA"):
+			termtoken=termstarttoken+"|"+termendtoken
+			self.setTermToken(termtoken)
+			self.setTermType("bookend")
+
+		glogic=glosstoken[0:1]
+		tlogic=termtoken[0:1]
+		self.setGlossLogic(glogic)
+		self.setTermLogic(tlogic)
+		
 
 	def refreshRegionToken(self,current):
 		if (self.regiontoken=="NA"):
@@ -338,8 +354,20 @@ class searchinput:
 	def setTermType(self,input):
 		self.termtype=input
 
+	def setTermStart(self,input):
+		self.termstarttoken=input
+
+	def setTermEnd(self,input):
+		self.termendtoken=input
+
+	def setTermLogic(self,input):
+		self.termlogic=input
+
 	def setGlossToken(self,input):
 		self.glosstoken=input
+
+	def setGlossLogic(self,input):
+		self.glosslogic=input
 
 	def setFNToken(self,input):
 		self.fntoken=input
@@ -374,10 +402,22 @@ class searchinput:
 		return self.termtoken
 	
 	def getTermType(self):
-		return self.termtype		
+		return self.termtype	
+
+	def getTermStart(self):
+		return self.termstarttoken	
+
+	def getTermEnd(self):
+		return self.termendtoken
+
+	def getTermLogic(self):
+		return self.termlogic
 
 	def getGlossToken(self):
 		return self.glosstoken
+
+	def getGlossLogic(self):
+		return self.glosslogic
 
 	def getFNToken(self):
 		return self.fntoken
@@ -402,6 +442,12 @@ class searchinput:
 
 	def getUserInput(self):
 		return self.userinput
+
+	def getTermStart(self):
+		return self.termstarttoken
+
+	def getTermEnd(self):
+		return self.termendtoken
 
 class allbates:
 
@@ -592,8 +638,6 @@ class resultobject:
 # userinput,data,authortoken,regiontoken,termtoken,termtype,glosstoken,modetoken,pagetoken,filetoken,ztoken
 def doJoinSearch(myinput,mydata):
 	global currentregion,currentmode
-	termstarttoken=""
-	termendtoken=""
 	
 	filter1=filterByRegion(myinput,mydata)
 	filter2=filterByAuthor(myinput,filter1)
@@ -604,14 +648,6 @@ def doJoinSearch(myinput,mydata):
 	if (filetoken!="NA"):
 		filter2=filterByFile(myinput,filter2)
 
-	termtoken=myinput.getTermToken()
-	glosstoken=myinput.getGlossToken()
-	ttype=termtoken[0:1]
-	termtype=myinput.getTermType()
-	if termtype=="bookend":
-		terms=termtoken.split("|")
-		termstarttoken=terms[0]
-		termendtoken=terms[1]
 	# to do: filter by document reference
 
 	modetoken=myinput.getModeToken()
@@ -626,8 +662,16 @@ def doJoinSearch(myinput,mydata):
 	logoutput(tagline)
 	resultcount=0
 	justterms=[]
+	
+	# input parameters
+	termtoken=myinput.getTermToken()
+	termtype=myinput.getTermType()
+	glosstoken=myinput.getGlossToken()
 	glosscmd=glosstoken
-	gtype=glosscmd[0:1]
+	glogic=myinput.getGlossLogic()
+	tlogic=myinput.getTermLogic()
+	termstarttoken=myinput.getTermStart()
+	termendtoken=myinput.getTermEnd()
 	
 	searchcode=0
 	searchterm=""
@@ -638,16 +682,14 @@ def doJoinSearch(myinput,mydata):
 		return
 	counter=0
 	for x in filter2:
-		#counter=counter+1
-		#print(counter)
 		result=""
-		
 		
 		mycell=allbates()
 		mycell.setup(x)
 		cellnum=mycell.getNumCells()
 		gloss=mycell.getGloss()
 		term=mycell.getTerm()
+
 		myresult=resultobject()
 		myresult.setup(mycell,myinput,currentmode)
 		#mycell.logState()
@@ -665,12 +707,12 @@ def doJoinSearch(myinput,mydata):
 			if multi==False:
 				if termtoken!="NA":
 					if termtype=="any":
-						if ttype!="=":
+						if tlogic!="=":
 							searchcode=2
 							searchterm=termtoken
 						
 						# exact match
-						if ttype=="=":
+						if tlogic=="=":
 							searchcode=3
 							searchterm=termtoken
 
@@ -687,11 +729,11 @@ def doJoinSearch(myinput,mydata):
 
 				if glosscmd!="NA":
 		
-					if gtype!="=":
+					if glogic!="=":
 						searchcode=4
 						searchterm=glosscmd
 
-					if gtype=="=":
+					if glogic=="=":
 						searchcode=5
 						searchterm=glosscmd
 
