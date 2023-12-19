@@ -6,18 +6,18 @@ Created 7 September 2023; last updated 13 October 2023.
 
 # Introduction and source data
 
-The source language data for this project from was obtained under a CC-BY-NC 4.0 Creative Commons Licence:
+The source language data for this project was obtained under a CC-BY-NC 4.0 Creative Commons Licence:
 
     Nick Thieberger. 2017. Digital Daisy Bates. Web resource. http://bates.org.au.
     https://creativecommons.org/licenses/by-nc/4.0/ 
 
-I wish to thank Nick Thieberger for making the information available in a convenient online form.  
+I wish to thank Nick Thieberger for making the Bates manuscript information available in a convenient online form.  
 
 I am not associated with the Digital Bates project.  This tool has been created by me for a personal project that uses the data, and to enable it to be easier to query the data, and to produce results in one or more formats that might be useful for referencing purposes.  The data from the HTML page of the Digital Bates project has been adapted and modified in a new form (allbates.csv) to be used with this offline command line tool.  
 
 The Digital Bates source data was published on condition the moral rights of the speakers/authors of language were preserved.  I respect that request. I have extracted the informant names that appear in the introductory parts of the source manuscripts so that they appear in each entry and can be recognised and queried as required.  
 
-Please note that the information includes specific author information, and a new field for 'region/dialect' that is my own opinion, for my own personal research.  The dialect is based on the locations given in the index.json file at the bates.org website.  In some cases, it has been supported with information within the header section of the questionnaires.  Please do not rely on the accuracy of this author and dialect information without checking it yourself.  
+Please note that the information includes specific author information, and a new field for 'region/dialect' that is my own opinion, for my own personal research.  The dialect is based on the locations given in the index.json file at the bates.org website.  In some cases, identification was based on other information contained within the header section of the questionnaires.  Please do not rely on the accuracy of this author and dialect information without checking it yourself.  
 
 The above attributions and explanation are provided to conform to the original CC-BY-NC 4.0 licence terms. 
 
